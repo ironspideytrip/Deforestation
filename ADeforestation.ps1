@@ -48,9 +48,12 @@ function Misconfigure-ACL-Object
 {
  [CmdletBinding()] Param(
         
-        [Parameter(ParameterSetName="grant_user", Mandatory = $False)]
+        [Parameter( Mandatory = $False)]
         [String]
         $grant_user,
+        [Parameter( Mandatory = $False)]
+        [String]
+        $grant_group,
         [Parameter(Mandatory=$False)]
         [String]
         $User,
@@ -78,8 +81,17 @@ function Misconfigure-ACL-Object
      }
      $loca="AD:\"+$DistinguishedName
      $acl=(Get-Acl $loca)
+     if($grant_user)
+     {
      $Useridentity=(Get-ADUser  -Identity $grant_user)
      $sid = [System.Security.Principal.SecurityIdentifier] $Useridentity.SID
+     }
+     elseif($grant_group)
+     {
+     $Groupidentity=(Get-ADGroup -Identity $Group)
+     $sid = [System.Security.Principal.SecurityIdentifier] $Groupidentity.SID
+
+     }
      $identity = [System.Security.Principal.IdentityReference] $SID
      if($Rights)
      {
@@ -107,7 +119,7 @@ function Reset-Acl
         $Group,
         [Parameter( Mandatory = $False)]
         [String]
-        $Remove_User
+        $Remove_Access
      )
      if($User)
      {
@@ -123,10 +135,10 @@ function Reset-Acl
     foreach($acc in $acl.access ) 
     { 
     $value = $acc.IdentityReference.Value 
-    if($value -match $Remove_User) 
+    if($value -match $Remove_Access) 
     { 
         $ACL.RemoveAccessRule($acc)
-        Set-Acl -AclObject $acl $loca -ErrorAction Stop 
+        Set-Acl -AclObject $acl $loca 
         
     } 
 
@@ -286,11 +298,3 @@ function Change-gpp-perm
       Set-GPPermission -Name $Name -TargetName $TargetName -TargetType $TargetType -PermissionLevel $PermissionLevel
      }
 }
-
-     
-
-
-
-
-
-
