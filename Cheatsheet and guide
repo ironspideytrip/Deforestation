@@ -1,0 +1,42 @@
+Cheatsheet and guide for Deforestation: Haven't included much help and error handling so that hopefully it bypasses AMSI better. Use this cheatsheet to learn how it works. Please practice it on local setup before applying in your post exploiataion tests.Goes without saying that it is a hardcore post exploitation tool ,meaning run it only with DA privileges. Also if testing on local setup, make sure winrm is accessible in all machines.
+
+
+
+1)Find the localadmins of a box
+
+Find-localadmins-wmi -ComputerName (computername)
+
+2)Find the sessions of a box
+
+Session-Machine -ComputerName (computername)
+
+3)Misconfigure ACL of an object*
+
+Misconfigure-ACL-object -grant_user (username) -User (username) -Rights (rights are by default genericall)
+
+4)Reset-ACL or rather remove the object rights completely*
+
+Reset-Acl -User (user) -Remove_Access 
+
+5)Make a user or group local admin in a computer*
+
+Make-LocalAdmin -Computer (computername) -User (user) -Domain (domain)
+
+6)Remove a user or a group local admin in a computer* 
+
+Remove-LocalAdmin  -Computer (computername) -User (user) -Domain (domain)
+
+7)Enable wmi access firewall bypass(Usually WMI is switched on but behind a firewall)
+
+Enable-wmi-firewall -Computer (computer)
+
+8)Get permissions of an object*
+
+Get-perm-object -User (username)
+
+9)Change gpp permissions*
+
+Set-GPPermission -Name (Name) -TargetName (TargetName) -TargetType (TargetType) -PermissionLevel (PermissionLevel)
+
+
+*signifies you can use not only users but also groups,OU's and gpp (gpp only in Get-perm-object)
