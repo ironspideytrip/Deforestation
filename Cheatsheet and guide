@@ -1,4 +1,7 @@
-Cheatsheet and guide for Deforestation: Haven't included much help and error handling so that hopefully it bypasses AMSI better. Use this cheatsheet to learn how it works. Please practice it on local setup before applying in your post exploiataion tests.Goes without saying that it is a hardcore post exploitation tool ,meaning run it only with DA privileges. Also if testing on local setup, make sure winrm is accessible in all machines.
+Cheatsheet and guide for Deforestation: Haven't included much help and error handling so that hopefully it bypasses AMSI better.   
+Use this cheatsheet to learn how it works. Please practice it on local setup before applying in your post exploiataion tests.
+Goes without saying that it is a hardcore post exploitation tool ,meaning run it only with DA privileges. 
+Also if testing on local setup, make sure winrm is accessible in all machines.
 
 
 
